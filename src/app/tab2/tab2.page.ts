@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tab2',
@@ -6,7 +7,39 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
+  descripcionFoto: String;
+  usuario: String ;
+
+  urlFoto: String = '../assets/images/feed/feed1.png';
+  datosPublicacion: any = {
+    usuario: String,
+    caption: String,
+    urlFoto: String
+  }
+  
+  
+  crearPublicacion(params: {usuario: String; caption: String; urlFoto: String}) {
+    this.http.post('https://insta-clone-app-e56a2-default-rtdb.firebaseio.com/publicaciones.json', params)
+    .subscribe(datosRespuesta => {
+      console.log(datosRespuesta);
+    })
+  }
+
+  ngOnInit() {
+    this.descripcionFoto = '';
+    this.usuario = '';
+
+    this.datosPublicacion = {
+      usuario: this.usuario, 
+      caption: this.descripcionFoto,
+      urlFoto: this.urlFoto
+    }
+
+    console.log(this.datosPublicacion);
+
+  }
 
 }
