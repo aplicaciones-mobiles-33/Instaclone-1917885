@@ -17,21 +17,9 @@ export class Tab1Page implements OnInit{
 
   constructor(private http : HttpClient) {}
 
-  cargarFeed(): void {
-    this.http.get('https://insta-clone-app-e56a2-default-rtdb.firebaseio.com/publicaciones.json')
-    .pipe(
-      map( responseData => {
-        for(const key in responseData) {
-          this.publicaciones.push( { ...responseData[key], key});
-        } return this.publicaciones;
-      })
-    ).subscribe(responseData => {
-      console.log(responseData);
-    })
-  }
 
   ngOnInit(): void {
-    this.cargarFeed();
+  
   }
 
 
